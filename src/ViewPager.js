@@ -34,6 +34,7 @@ export default class ViewPager extends PureComponent {
     initialPage: {},
     lazyrenderThreshold: 1,
     firePageChangeIfPassedScreenCenter: false,
+    reverseStart: false,
   }
 
   static propTypes = {
@@ -55,6 +56,7 @@ export default class ViewPager extends PureComponent {
     showNativeScrollIndicator: PropTypes.bool,
     lazyrender: PropTypes.bool,
     firePageChangeIfPassedScreenCenter: PropTypes.bool,
+    reverseStart: PropTypes.bool,
 
     renderPage: PropTypes.func,
     onPageChange: PropTypes.func,
@@ -76,8 +78,11 @@ export default class ViewPager extends PureComponent {
       this.pageCount > 1
         ? this.props.thresholdPages : 0
     this.scrollIndex = 0
-    this.pageIndex = this.thresholdPages
-    this.pageIndexBeforeDrag = this.thresholdPages
+    //this.pageIndex = this.thresholdPages
+    //this.pageIndexBeforeDrag = this.thresholdPages
+    this.pageIndex =
+      this.reverseStart 
+      ? this.pageCount : 0
 
     this.state = {
       dataSource: [...this._prepareData(this.props.data || [])],
